@@ -1,0 +1,174 @@
+{
+  "source": "https://hf-rev-kitchen.hf.space/api/catalog",
+  "reference_version": "0.34.0",
+  "parser_aliases": {
+    "qwen3_coder": "qwen3_xml"
+  },
+  "models": [
+    {
+      "model": "google/gemma-4-E2B-it",
+      "hub_revision": "4adf15748de9e1a0097b6274cee9c15836c41c37",
+      "kitchen_configuration": "4ee036af-c466-4eb1-aef8-1004d074bdd9",
+      "kitchen_revision": 1,
+      "kitchen_vllm_version": "v0.33.0",
+      "expected": {
+        "model": "google/gemma-4-E2B-it",
+        "revision": "4adf15748de9e1a0097b6274cee9c15836c41c37",
+        "max-model-len": 131072,
+        "tool-call-parser": "gemma4",
+        "enable-auto-tool-choice": null,
+        "reasoning-parser": "gemma4"
+      },
+      "arguments": [],
+      "files": {
+        "config.json": {
+          "architectures": [
+            "Gemma4ForConditionalGeneration"
+          ],
+          "model_type": "gemma4",
+          "text_config": {
+            "max_position_embeddings": 131072,
+            "model_type": "gemma4_text",
+            "num_attention_heads": 8
+          }
+        },
+        "tokenizer_config.json": {
+          "tokenizer_class": "GemmaTokenizer",
+          "model_max_length": 1000000000000000019884624838656
+        },
+        "chat_template.jinja": "<|tool_call> <|channel> thought"
+      }
+    },
+    {
+      "model": "Qwen/Qwen3.8-27B",
+      "hub_revision": "dbdc473dea0d6a9763042881cc33d6058d1742d2",
+      "kitchen_configuration": "9c83ae21-d5d5-4dc3-b8c8-0439171df951",
+      "kitchen_revision": 1,
+      "kitchen_vllm_version": "v0.33.0",
+      "expected": {
+        "model": "Qwen/Qwen3.8-27B",
+        "revision": "dbdc473dea0d6a9763042881cc33d6058d1742d2",
+        "enable-auto-tool-choice": null,
+        "tool-call-parser": "qwen3_coder",
+        "reasoning-parser": "qwen3",
+        "max-model-len": 262144
+      },
+      "arguments": [],
+      "files": {
+        "config.json": {
+          "architectures": [
+            "Qwen3_5ForConditionalGeneration"
+          ],
+          "model_type": "qwen3_5",
+          "text_config": {
+            "max_position_embeddings": 262144,
+            "model_type": "qwen3_5_text",
+            "num_attention_heads": 24
+          }
+        },
+        "tokenizer_config.json": {
+          "tokenizer_class": "Qwen2Tokenizer",
+          "model_max_length": 262144
+        },
+        "chat_template.jinja": "<tool_call> <function= <think> </think>"
+      }
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "hub_revision": "60d8d70770c6776ff598c94bb586a859a38244f1",
+      "kitchen_configuration": "4e9209b9-ce04-4f91-85f8-bd5976da3081",
+      "kitchen_revision": 1,
+      "kitchen_vllm_version": "v0.20.1",
+      "expected": {
+        "model": "deepseek-ai/DeepSeek-V4-Flash",
+        "max-model-len": 32768,
+        "tokenizer-mode": "deepseek_v4",
+        "tool-call-parser": "deepseek_v4",
+        "enable-auto-tool-choice": null,
+        "reasoning-parser": "deepseek_v4"
+      },
+      "arguments": [
+        "--max-model-len",
+        "32768"
+      ],
+      "files": {
+        "config.json": {
+          "architectures": [
+            "DeepseekV4ForCausalLM"
+          ],
+          "max_position_embeddings": 1048576,
+          "model_type": "deepseek_v4",
+          "num_attention_heads": 64
+        },
+        "tokenizer_config.json": {
+          "tokenizer_class": "PreTrainedTokenizerFast",
+          "model_max_length": 1048576
+        },
+        "encoding/encoding_dsv4.py": "raise RuntimeError(\"never execute checkpoint code\")\nFORMAT_0='\uff5cDSML\uff5c'\nFORMAT_1='tool_calls'\nFORMAT_2='<think>'\nFORMAT_3='thinking'"
+      }
+    },
+    {
+      "model": "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
+      "hub_revision": "68faf511d618ef198fef186659617cfd2eb8e33a",
+      "kitchen_configuration": "2768a138-974b-46bc-a413-742f6c144ef9",
+      "kitchen_revision": 1,
+      "kitchen_vllm_version": "v0.33.0",
+      "expected": {
+        "model": "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
+        "revision": "68faf511d618ef198fef186659617cfd2eb8e33a",
+        "max-model-len": 131072,
+        "tokenizer-mode": "mistral",
+        "config-format": "mistral",
+        "load-format": "mistral",
+        "tool-call-parser": "mistral",
+        "enable-auto-tool-choice": null
+      },
+      "arguments": [],
+      "files": {
+        "config.json": {
+          "architectures": [
+            "Mistral3ForConditionalGeneration"
+          ],
+          "model_type": "mistral3",
+          "text_config": {
+            "max_position_embeddings": 131072,
+            "model_type": "mistral",
+            "num_attention_heads": 32
+          }
+        },
+        "tokenizer_config.json": {
+          "tokenizer_class": "LlamaTokenizerFast",
+          "model_max_length": 1000000000000000019884624838656,
+          "additional_special_tokens": ["[TOOL_CALLS]"]
+        },
+        "chat_template.json": {"chat_template": "[INST] {{ messages }} [/INST]"},
+        "params.json": {
+          "dim": 5120,
+          "n_heads": 32,
+          "n_kv_heads": 8,
+          "max_position_embeddings": 131072,
+          "vision_encoder": {
+            "hidden_size": 1024,
+            "num_channels": 3,
+            "max_image_size": 1540,
+            "patch_size": 14,
+            "rope_theta": 10000.0,
+            "intermediate_size": 4096,
+            "num_hidden_layers": 24,
+            "num_attention_heads": 16,
+            "adapter_bias": false,
+            "mm_projector_id": "patch_merge",
+            "spatial_merge_size": 2,
+            "add_pre_mm_projector_layer_norm": true,
+            "image_token_id": 10,
+            "image_break_token_id": 12,
+            "image_end_token_id": 13,
+            "image_size": 1540
+          }
+        },
+        "consolidated.safetensors": "",
+        "tekken.json": ""
+      }
+    }
+  ]
+}

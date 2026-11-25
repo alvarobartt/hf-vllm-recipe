@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hf-vllm-recipe"
+version = "0.0.1"
+description = "A Hugging Face CLI extension to generate vLLM serve commands."
+readme = "README.md"
+authors = [{ name = "Alvaro Bartolome", email = "alvarobartt@gmail.com" }]
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+dependencies = ["httpx2>=2.12.0,<3"]
+
+[project.optional-dependencies]
+hf-mem = ["hf-mem>=1.1.1,<2"]
+
+[project.scripts]
+hf-vllm-recipe = "hf_vllm_recipe.cli:main"
+
+[dependency-groups]
+dev = ["ruff>=0.15.14", "ty>=0.0.109"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["build", "dist"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ty.environment]
+python-version = "3.12"
+
+[tool.ty.analysis]
+allowed-unresolved-imports = ["hf_mem"]
+
+[tool.ty.src]
+include = ["src", "tests"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["hf_vllm_recipe*"]
